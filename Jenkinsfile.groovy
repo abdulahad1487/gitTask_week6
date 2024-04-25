@@ -6,15 +6,8 @@ pipeline {
                 echo "Building code using Maven..."
                 
             }
-            post {
-                always {
-                    mail to: "ahad1487281999@gmail.com",
-                    subject: "Build Status Email",
-                    body: "Build log attached!"
-                }
-            }
         }
-stage("Unit and Integration Tests") {
+        stage("Unit and Integration Tests") {
             steps {
                 echo "Running unit tests..."
                 
@@ -33,6 +26,13 @@ stage("Unit and Integration Tests") {
                 echo "Performing security scan with OWASP ZAP..."
                 
             }
+            post {
+                always {
+                    mail to: "ahad1487281999@gmail.com",
+                    subject: "Security Scan Status Email",
+                    body: "successfully Security Scan log attached!"
+                }
+            }
         }
         stage("Deploy to Staging") {
             steps {
@@ -45,6 +45,13 @@ stage("Unit and Integration Tests") {
                 echo "Running integration tests on staging environment..."
                 
             }
+            post {
+                always {
+                    mail to: "ahad1487281999@gmail.com",
+                    subject: "Testing Status Email",
+                    body: "successfullytesting log attached!"
+                }
+            }
         }
         stage("Deploy to Production") {
             steps {
@@ -53,4 +60,5 @@ stage("Unit and Integration Tests") {
             }
         }
     }
+    
 }
